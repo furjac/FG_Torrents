@@ -36,7 +36,7 @@ We've also integrated multiple servers to enhance your file-finding experience. 
 
 ## Closed Source
 
-As a closed-source freeware, **FG_Torrents** ensures the integrity and security of its codebase. Contact us via Discord to inquire about purchasing the source code. We accept all types of payment methods.
+As a closed-source freeware, **FG_Torrents** ensures the integrity and security of its codebase. Contact us via [Discord](https://discord.gg/YN9RKxewsq) to inquire about purchasing the source code. We accept all types of payment methods.
 
 ## Usage
 
@@ -93,8 +93,6 @@ Your contributions are greatly appreciated and help ensure the continued improve
 
 ## Updates
 
-Please note that releasing updates for this software involves extensive testing and may take a considerable amount of time. If you require immediate updates or have specific feature requests, feel free to reach out to me on Discord.
+Please note that releasing updates for this software involves extensive testing and may take a considerable amount of time. If you require immediate updates or have specific feature requests, feel free to reach out to me on [Discord](https://discord.gg/YN9RKxewsq).
 
-While the source code is fully functional and regularly updated, purchasing the source code provides you with immediate access to all the latest features and enhancements without waiting for official releases.
-
-Contact me on Discord for more information regarding purchasing the source code and for any other inquiries or assistance you may need.
+Contact me on [Discord](https://discord.gg/YN9RKxewsq) for more information regarding purchasing the source code and for any other inquiries or assistance you may need.
