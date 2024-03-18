@@ -45,6 +45,7 @@ PROXY_PORT = 80
 PROXY_USER = 'pbgbttrk-rotate'
 PROXY_PASS = 'h2oktfdte1oh'
 ```
+this is mine use ur own credentials for the better result
 
 ## Errors and Fixes
 
