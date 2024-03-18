@@ -2,6 +2,20 @@
 
 Welcome to **FG_Torrents**, your ultimate tool for fetching and downloading various files from the depths of the internet using torrents.
 
+<p align="center">
+  <a href="https://github.com/furjac/FG_Torrents">
+    <img src="https://img.shields.io/github/license/furjac/FG_Torrents" alt="GitHub license" />
+  </a>
+  <a href="https://github.com/furjac/FG_Torrents/stargazers">
+    <img src="https://img.shields.io/github/stars/furjac/FG_Torrents" alt="GitHub stars" />
+  </a>
+  <img src="https://img.shields.io/github/downloads/furjac/FG_Torrents/total" alt="GitHub all releases" />
+  <a href="https://discord.gg/YN9RKxewsq">
+    <img src="https://img.shields.io/discord/1026098018929360967.svg?label=&logo=discord&logoColor=ffffff&color=5865F2" alt="Join the FG_Teams discord server" />
+  </a>
+  <img src="https://img.shields.io/github/v/release/furjac/FG_Torrents" alt="GitHub release (latest SemVer)" />
+</p>
+
 ## Features
 
 With **FG_Torrents**, you can easily download:
@@ -65,3 +79,22 @@ Download **FG_Torrents** now and unlock a world of limitless possibilities!
 ## Legal Disclaimer:
 
 This software is freeware, and you can download and share it with others. However, please be aware that I am not responsible for any illegal activities conducted using this software. Use it responsibly and within the bounds of the law.
+
+
+## Donation
+
+If you find **FG_Torrents** helpful and wish to support further development, you can donate to me via GitHub Sponsorship or visit my website for alternative donation methods:
+
+[GitHub Sponsorship](https://github.com/sponsors/furjac)
+
+[Donate via Website](https://www.fg-repacks.site/p/donate.html)
+
+Your contributions are greatly appreciated and help ensure the continued improvement of **FG_Torrents**. Thank you for your support!
+
+## Updates
+
+Please note that releasing updates for this software involves extensive testing and may take a considerable amount of time. If you require immediate updates or have specific feature requests, feel free to reach out to me on Discord.
+
+While the source code is fully functional and regularly updated, purchasing the source code provides you with immediate access to all the latest features and enhancements without waiting for official releases.
+
+Contact me on Discord for more information regarding purchasing the source code and for any other inquiries or assistance you may need.
