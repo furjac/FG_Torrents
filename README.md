@@ -33,6 +33,18 @@ As a closed-source freeware, **FG_Torrents** ensures the integrity and security 
 3. Make sure you have **Google Chrome** installed.
 4. Ensure that **qBittorrent** is running before launching **FG_Torrents**.
 5. Run the software **FG_Torrents.exe** and follow the on-screen instructions.
+6. Make sure that proxy.txt and chrome.crx next to the FG_Torrents.exe in same directory
+
+## Proxy
+
+You can get free premium proxies from [webshare.io](https://webshare.io/) and use them for proxy configuration. Configure it in `proxy.txt` as follows:
+
+```plaintext
+PROXY_HOST = 'p.webshare.io'
+PROXY_PORT = 80
+PROXY_USER = 'pbgbttrk-rotate'
+PROXY_PASS = 'h2oktfdte1oh'
+```
 
 ## Errors and Fixes
 
