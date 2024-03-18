@@ -28,7 +28,7 @@ As a closed-source freeware, **FG_Torrents** ensures the integrity and security 
 
 **FG_Torrents** is exclusively developed for Windows. For other systems, please raise an issue in the issues section.
 
-1. **Download** the latest software from [releases](https://github.com/furjac/FG_Torrents/releases).
+1. **Download** the latest software from [releases](https://github.com/furjac/FG_Torrents/releases) and keep all files in same directory.
 2. Ensure you have the latest version of **qBittorrent** installed.
 3. Make sure you have **Google Chrome** installed.
 4. Ensure that **qBittorrent** is running before launching **FG_Torrents**.
