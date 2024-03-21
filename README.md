@@ -1,6 +1,6 @@
 # FG_Torrents
 
-Welcome to **FG_Torrents**, your ultimate tool for fetching and downloading various files from the depths of the internet using torrents.
+Welcome to **FG_Torrents**, your ultimate tool for downloading any files from the depths of the internet using torrents. very powerful tool can download anything use it at your own risk
 
 <p align="center">
   <a href="https://github.com/furjac/FG_Torrents">
@@ -20,9 +20,9 @@ Welcome to **FG_Torrents**, your ultimate tool for fetching and downloading vari
 
 With **FG_Torrents**, you can easily download:
 
-- Audio files
-- Video files
-- P*rn files
+- Audio
+- Video
+- Porn
 - Softwares
 - Games
 - Anime
@@ -94,5 +94,7 @@ Your contributions are greatly appreciated and help ensure the continued improve
 ## Updates
 
 Please note that releasing updates for this software involves extensive testing and may take a considerable amount of time. If you require immediate updates or have specific feature requests, feel free to reach out to me on [Discord](https://discord.gg/YN9RKxewsq).
+
+if supported this repo correctly i will add updates weekly once i will add more servers for more efficiency
 
 Contact me on [Discord](https://discord.gg/YN9RKxewsq) for more information regarding purchasing the source code and for any other inquiries or assistance you may need.
