@@ -26,13 +26,11 @@ With **FG_Torrents**, you can easily download:
 - Softwares
 - Games
 - Anime
+- can download multiple things at a single time
 - and much more!
 
 We've also integrated multiple servers to enhance your file-finding experience. The best thing about this software is all selenium codes can be updated without changing source code.
-
-## Unique Code Elements
-
-**FG_Torrents** boasts a unique feature embedded deep within its code, promising unparalleled functionality and efficiency.
+removed google elements update as it was giving a lots of trouble
 
 ## Closed Source
 
