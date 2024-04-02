@@ -49,7 +49,7 @@ As a closed-source freeware, **FG_Torrents** ensures the integrity and security 
 
 ## Proxy
 
-You can get free premium proxies from [webshare.io](https://webshare.io/) and use them for proxy configuration. Configure it in `proxy.txt` as follows:
+You can get free premium proxies from [webshare.io]([https://webshare.io/](https://www.webshare.io/?referral_code=je4m1m2hbz3i)) and use them for proxy configuration. Configure it in `proxy.txt` as follows:
 
 ```plaintext
 PROXY_HOST = 'p.webshare.io'
