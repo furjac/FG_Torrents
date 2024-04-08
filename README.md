@@ -1,6 +1,8 @@
 # FG_Torrents
 
-Welcome to **FG_Torrents**, using this tool you can watch movies/series anime etc online and this is a ultimate tool for downloading any files from the depths of the internet using torrents. very powerful tool can download anything use it at your own risk
+Welcome to **FG_Torrents**, the ultimate tool for using torrents to download any content from the depths of the internet. With this program, you may view movies, TV shows, anime, etc. online. extremely strong tool that you use at your own risk and can download anything.
+
+**Disclaimer**: we does not store any files on our servers, all the videos are hosted on 3rd party services.
 
 <p align="center">
   <a href="https://github.com/furjac/FG_Torrents">
@@ -79,6 +81,8 @@ Download **FG_Torrents** now and unlock a world of limitless possibilities!
 ## Legal Disclaimer:
 
 This software is freeware, and you can download and share it with others. However, please be aware that I am not responsible for any illegal activities conducted using this software. Use it responsibly and within the bounds of the law.
+
+**Disclaimer**: we does not store any files on our servers, all the videos are hosted on 3rd party services.
 
 
 ## Donation
