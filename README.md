@@ -1,6 +1,6 @@
 # FG_Torrents
 
-Welcome to **FG_Torrents**, your ultimate tool for downloading any files from the depths of the internet using torrents. very powerful tool can download anything use it at your own risk
+Welcome to **FG_Torrents**, using this tool you can watch movies/series anime etc online and this is a ultimate tool for downloading any files from the depths of the internet using torrents. very powerful tool can download anything use it at your own risk
 
 <p align="center">
   <a href="https://github.com/furjac/FG_Torrents">
