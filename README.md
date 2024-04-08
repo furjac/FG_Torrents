@@ -47,7 +47,7 @@ As a closed-source freeware, **FG_Torrents** ensures the integrity and security 
 5. Run the software **FG_Torrents.exe** and follow the on-screen instructions.
 6. Make sure that proxy.txt and chrome.crx next to the FG_Torrents.exe in same directory
 
-## Proxy
+## Proxy/VPN
 
 You can get free premium proxies from [webshare.io]([https://webshare.io/](https://www.webshare.io/?referral_code=je4m1m2hbz3i)) and use them for proxy configuration. Configure it in `proxy.txt` as follows:
 
@@ -58,6 +58,8 @@ PROXY_USER = 'pbgbttrk-rotate'
 PROXY_PASS = 'h2oktfdte1oh'
 ```
 this is mine use ur own credentials for the better result
+**VPN**
+These days, you may use VPN programs like Windscribe. If you don't want to configure a proxy, simply say no when the program asks. It's simple to use, and I believe that using a VPN is faster than using a proxy. Still, it's best to use what you want.
 
 ## Errors and Fixes
 
