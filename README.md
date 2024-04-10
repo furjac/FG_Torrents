@@ -1,6 +1,8 @@
 # FG_Torrents
 
-Welcome to **FG_Torrents**, your ultimate tool for downloading any files from the depths of the internet using torrents. very powerful tool can download anything use it at your own risk
+Welcome to **FG_Torrents**, the ultimate tool for using torrents to download any content from the depths of the internet. With this program, you may view movies, TV shows, anime, etc. online. extremely strong tool that you use at your own risk and can download anything.
+
+**Disclaimer**: we does not store any files on our servers, all the videos are hosted on 3rd party services.
 
 <p align="center">
   <a href="https://github.com/furjac/FG_Torrents">
@@ -47,7 +49,7 @@ As a closed-source freeware, **FG_Torrents** ensures the integrity and security 
 5. Run the software **FG_Torrents.exe** and follow the on-screen instructions.
 6. Make sure that proxy.txt and chrome.crx next to the FG_Torrents.exe in same directory
 
-## Proxy
+## Proxy/VPN
 
 You can get free premium proxies from [webshare.io]([https://webshare.io/](https://www.webshare.io/?referral_code=je4m1m2hbz3i)) and use them for proxy configuration. Configure it in `proxy.txt` as follows:
 
@@ -58,6 +60,8 @@ PROXY_USER = 'pbgbttrk-rotate'
 PROXY_PASS = 'h2oktfdte1oh'
 ```
 this is mine use ur own credentials for the better result
+**VPN**
+These days, you may use VPN programs like Windscribe. If you don't want to configure a proxy, simply say no when the program asks. It's simple to use, and I believe that using a VPN is faster than using a proxy. Still, it's best to use what you want.
 
 ## Errors and Fixes
 
@@ -77,6 +81,8 @@ Download **FG_Torrents** now and unlock a world of limitless possibilities!
 ## Legal Disclaimer:
 
 This software is freeware, and you can download and share it with others. However, please be aware that I am not responsible for any illegal activities conducted using this software. Use it responsibly and within the bounds of the law.
+
+**Disclaimer**: we does not store any files on our servers, all the videos are hosted on 3rd party services.
 
 
 ## Donation
