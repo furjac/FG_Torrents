@@ -98,3 +98,9 @@ Please note that releasing updates for this software involves extensive testing 
 if supported this repo correctly i will add updates weekly once i will add more servers for more efficiency
 
 Contact me on [Discord](https://discord.gg/YN9RKxewsq) for more information regarding purchasing the source code and for any other inquiries or assistance you may need.
+
+## Contributors needed
+
+- need gui developer
+- translation
+- many things
