@@ -34,10 +34,6 @@ With **FG_Torrents**, you can easily download:
 We've also integrated multiple servers to enhance your file-finding experience. The best thing about this software is all selenium codes can be updated without changing source code.
 removed google elements update as it was giving a lots of trouble
 
-## Closed Source
-
-As a closed-source freeware, **FG_Torrents** ensures the integrity and security of its codebase. Contact us via [Discord](https://discord.gg/YN9RKxewsq) to inquire about purchasing the source code. We accept all types of payment methods.
-
 ## Usage
 
 **FG_Torrents** is exclusively developed for Windows. For other systems, please raise an issue in the issues section.
