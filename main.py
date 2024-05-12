@@ -1,3 +1,4 @@
+import requests
 import logging
 import os
 import platform
@@ -44,6 +45,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 class Movies:
     def __init__(self):
+        self.check_version()
+        self.clear()
         self.use_proxy = False
         self.proxy_config = None
         chromedriver_autoinstaller.install()
@@ -195,6 +198,18 @@ class Movies:
 
         self.driver.execute_cdp_cmd(
             "Network.setBlockedURLs", {"urls": blocked_urls})
+        
+    def check_version(self):
+        current_version = 'FG Torrents 8.0'
+        response = requests.get("https://api.github.com/repos/furjac/FG_Torrents/releases/latest")
+        latest_version = response.json()["name"]
+
+        if latest_version != current_version:
+            print('You are using an old version.')
+            print('The latest version is', latest_version)
+            print('Download latest version for extra experience\nThanks')
+        else:
+            print('You are using the latest version.. ')
 
     def open_site(self):
         self.clear()
@@ -826,6 +841,15 @@ class Movies:
     def play(self):
         webbrowser.open(self.shortened_link)
 
+    def hindi(self):
+        self.clear()
+        self.logo()
+        print('searching all the internet plz wait it may take time')
+        self.driver.get(f'https://desicinemas.tv/?s={self.movie_name}')
+    
+    def get_hindi_list(self):
+        ...
+
     def tamilyogi(self):
         self.clear()
         self.logo()
@@ -962,8 +986,9 @@ class Movies:
 
         print(Fore.RED + '\n\nWatch online servers:(movies only)' + Style.RESET_ALL)
         print(Fore.CYAN + '\n3. Watch online(all language movies available no dubs)' + Style.RESET_ALL)
-        print(Fore.CYAN + '\n4. Tamil movies/series (dubbed)' + Style.RESET_ALL)
-        print(Fore.CYAN + '\n5. anime (sub-dub)' + Style.RESET_ALL)
+        print(Fore.CYAN + '\n4. Hindi movies (only movies but all dubs are available)' + Style.RESET_ALL)
+        print(Fore.CYAN + '\n5. Tamil movies/series (dubbed)' + Style.RESET_ALL)
+        print(Fore.CYAN + '\n6. anime (sub-dub)' + Style.RESET_ALL)
         print(Fore.CYAN + "More adding soon" + Style.RESET_ALL)
         server_choice = input(
             Fore.YELLOW + "\nEnter your choice: " + Style.RESET_ALL
@@ -1012,9 +1037,24 @@ class Movies:
         elif server_choice == '4':
             self.clear()
             self.logo()
+            print(Fore.RED + 'Make sure use vpn or enable proxy from the software')
             self.movie_name = input(
                 Fore.YELLOW
                 + "Enter name of movie > "
+                + Style.RESET_ALL
+            )
+            self.hindi()
+            self.get_hindi_list()
+            self.list_hindi()
+            self.user_selected_hindi()
+            self.extract_html_hindi()
+            self.shorten_video_link()
+        elif server_choice == '5':
+            self.clear()
+            self.logo()
+            self.movie_name = input(
+                Fore.YELLOW
+                + "Enter name of movie/series > "
                 + Style.RESET_ALL
             )
             self.tamilyogi()
@@ -1023,7 +1063,7 @@ class Movies:
             self.user_selected()
             self.extract_html()
             self.shorten_video_link()
-        elif server_choice == '5':
+        elif server_choice == '6':
             self.clear()
             self.logo()
             self.driver.quit()
@@ -1049,14 +1089,17 @@ class Movies:
 
 
 if __name__ == "__main__":
-    if not Movies.check_chrome_installed():
-        print("Please install Chrome to run the code.")
-        input("Press Enter to continue")
-        sys.exit()
-    if not Movies.is_qbittorrent_installed():
-        print("Please install qBittorrent to run the code.")
-        input("Press Enter to continue")
-        sys.exit()
+    if platform.system() == "Windows":
+        if not Movies.check_chrome_installed():
+            print("Please install Chrome to run the code.")
+            input("Press Enter to continue")
+            sys.exit()
+        if not Movies.is_qbittorrent_installed():
+            print("Please install qBittorrent to run the code.")
+            input("Press Enter to continue")
+            sys.exit()
+    else:
+        print('make sure u have installed chrome and qbittorrent plz')
     movie_instance = Movies()
     movie_instance.setup_signal_handling()
     movie_instance.server_selection_menu()
