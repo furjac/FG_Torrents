@@ -18,6 +18,7 @@ import threading
 import requests
 from extractor import extract
 import webbrowser
+import json
 
 import chromedriver_autoinstaller
 import pyfiglet
@@ -42,9 +43,24 @@ BLOCKED_FILE = "block-inspect.js"
 class Handler(http.server.SimpleHTTPRequestHandler):
     pass
 
+class Translator:
+    def __init__(self, language):
+        self.language = language
+        self.translations = self.load_translations()
+
+    def load_translations(self):
+        try:
+            with open(f"locales/{self.language}.json", "r", encoding="utf-8") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            return {}
+
+    def translate(self, key):
+        return self.translations.get(key, key)
 
 class Movies:
-    def __init__(self):
+    def __init__(self, language="en"):
+        self.translator = Translator(language)
         self.check_version()
         self.clear()
         self.use_proxy = False
@@ -1089,6 +1105,7 @@ class Movies:
 
 
 if __name__ == "__main__":
+    locale = input('Enter your language code[eg. en,ru]: ')
     if platform.system() == "Windows":
         if not Movies.check_chrome_installed():
             print("Please install Chrome to run the code.")
@@ -1100,6 +1117,6 @@ if __name__ == "__main__":
             sys.exit()
     else:
         print('make sure u have installed chrome and qbittorrent plz')
-    movie_instance = Movies()
+    movie_instance = Movies(language=locale)
     movie_instance.setup_signal_handling()
     movie_instance.server_selection_menu()
