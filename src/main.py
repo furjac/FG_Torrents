@@ -1053,18 +1053,19 @@ class Movies:
         elif server_choice == '4':
             self.clear()
             self.logo()
-            print(Fore.RED + 'Make sure use vpn or enable proxy from the software')
-            self.movie_name = input(
-                Fore.YELLOW
-                + "Enter name of movie > "
-                + Style.RESET_ALL
-            )
-            self.hindi()
-            self.get_hindi_list()
-            self.list_hindi()
-            self.user_selected_hindi()
-            self.extract_html_hindi()
-            self.shorten_video_link()
+            print('Sorry guys this is still under development will be available soon')
+            # print(Fore.RED + 'Make sure use vpn or enable proxy from the software')
+            # self.movie_name = input(
+            #     Fore.YELLOW
+            #     + "Enter name of movie > "
+            #     + Style.RESET_ALL
+            # )
+            # self.hindi()
+            # self.get_hindi_list()
+            # self.list_hindi()
+            # self.user_selected_hindi()
+            # self.extract_html_hindi()
+            # self.shorten_video_link()
         elif server_choice == '5':
             self.clear()
             self.logo()
