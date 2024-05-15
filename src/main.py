@@ -223,7 +223,7 @@ class Movies:
             "Network.setBlockedURLs", {"urls": blocked_urls})
 
     def check_version(self):
-        current_version = 'FG Torrents 8.0'
+        current_version = 'FG Torrents 9.0'
         response = requests.get(
             "https://api.github.com/repos/furjac/FG_Torrents/releases/latest")
         latest_version = response.json()["name"]
