@@ -51,8 +51,7 @@ class Translator:
 
     def load_translations(self):
         try:
-            translation_file = resource_path(f"locales/{self.language}/{self.language}.json")
-            with open(translation_file, "r", encoding="utf-8") as file:
+            with open(f"locales/{self.language}/{self.language}.json", "r", encoding="utf-8") as file:
                 return json.load(file)
         except FileNotFoundError:
             print(f"Translation file not found for language: {self.language}")
@@ -63,16 +62,6 @@ class Translator:
 
     def translate(self, key):
         return self.translations.get(key, key)
-
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
 
 
 class Movies:
