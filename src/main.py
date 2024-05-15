@@ -43,6 +43,7 @@ BLOCKED_FILE = "block-inspect.js"
 class Handler(http.server.SimpleHTTPRequestHandler):
     pass
 
+
 class Translator:
     def __init__(self, language):
         self.language = language
@@ -50,13 +51,18 @@ class Translator:
 
     def load_translations(self):
         try:
-            with open(f"locales/{self.language}.json", "r", encoding="utf-8") as file:
+            with open(f"locales/{self.language}/{self.language}.json", "r", encoding="utf-8") as file:
                 return json.load(file)
         except FileNotFoundError:
+            print(f"Translation file not found for language: {self.language}")
+            return {}
+        except Exception as e:
+            print(f"Error loading translations: {e}")
             return {}
 
     def translate(self, key):
         return self.translations.get(key, key)
+
 
 class Movies:
     def __init__(self, language="en"):
@@ -96,7 +102,8 @@ class Movies:
         self.options = webdriver.ChromeOptions()
         self.clear()
         self.logo()
-        proxy_choice = input("Do you want to use a proxy? (y/n): ").lower()
+        proxy_choice = input(self.translator.translate(
+            "use_proxy") + " (y/n): ").lower()
         if proxy_choice == 'y':
             self.use_proxy = True
             self.proxy_config = self.read_proxy_config("proxy.txt")
@@ -171,7 +178,7 @@ class Movies:
             self.use_proxy = False
             pass
         else:
-            print("Invalid input. Defaulting to not using proxy.")
+            print(self.translator.translate("not_proxy_error"))
 
         ua = UserAgent()
         user_agent = ua.random
@@ -214,22 +221,23 @@ class Movies:
 
         self.driver.execute_cdp_cmd(
             "Network.setBlockedURLs", {"urls": blocked_urls})
-        
+
     def check_version(self):
         current_version = 'FG Torrents 8.0'
-        response = requests.get("https://api.github.com/repos/furjac/FG_Torrents/releases/latest")
+        response = requests.get(
+            "https://api.github.com/repos/furjac/FG_Torrents/releases/latest")
         latest_version = response.json()["name"]
 
         if latest_version != current_version:
-            print('You are using an old version.')
-            print('The latest version is', latest_version)
-            print('Download latest version for extra experience\nThanks')
+            print(self.translator.translate("old_version"), latest_version)
+            print(self.translator.translate("suggest_latest"))
         else:
-            print('You are using the latest version.. ')
+            print(self.translator.translate("latest"))
 
     def open_site(self):
         self.clear()
-        print(Fore.LIGHTBLUE_EX + "Using server 1" + Fore.LIGHTBLUE_EX)
+        print(Fore.LIGHTBLUE_EX +
+              self.translator.translate("server_one") + Fore.LIGHTBLUE_EX)
         self.driver.get(self.url)
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, f'//*[@id="{self.search}"]'))
@@ -267,7 +275,7 @@ class Movies:
         self.logo()
         print(
             Fore.GREEN
-            + "Let me cook plz wait this may take some time... 🥵"
+            + self.translator.translate("cooking")
             + Fore.GREEN
         )
         search = WebDriverWait(self.driver, 10).until(
@@ -351,8 +359,8 @@ class Movies:
         self.logo()
 
         if not self.picture:
-            print(f"The {self.search} does not exist or not found.")
-            print("Please try a different server.")
+            print(f"", self.translator.translate("not_exist"))
+            print(self.translator.translate("diff_server"))
 
         for i, movie in enumerate(self.picture):
             uled_by_value = self.uled[i]
@@ -362,14 +370,14 @@ class Movies:
                 f"\n{i}. {movie} - Uploaded By: {uled_by_value}" + Fore.CYAN
             )
 
-        print(Fore.RED + "\ne - Exit application" + Fore.RED)
+        print(Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
 
     def server2(self):
         ...
 
     def take_user_input(self):
         user_input = input(
-            "Enter the numbers of the torrents you want to download (separated by spaces), or 'e' to exit: ").strip().lower()
+            self.translator.translate("download_number")).strip().lower()
 
         if user_input == "e":
             subprocess.run("taskkill /f /im chrome.exe", shell=True)
@@ -384,13 +392,13 @@ class Movies:
                     if 0 <= r < len(self.urls):
                         selected_links.append(self.urls[r])
                     else:
-                        print(f"Invalid input {r}. Skipping.")
+                        print(f"{self.translator.translate('invalid_input')}")
 
                 if not selected_links:
-                    print("No valid selections. Please enter valid numbers.")
+                    print(self.translator.translate("selection_error"))
                     return None
 
-                print("\nPlease be patient. Your downloads will begin in a few seconds.")
+                print(f"\n{self.translator.translate('patience')}")
 
                 for selected_link in selected_links:
                     self.driver.get(selected_link)
@@ -408,7 +416,7 @@ class Movies:
                 self.driver.quit()
                 self.download_selected()
             except ValueError:
-                print("Invalid input. Please enter valid numbers separated by spaces.")
+                print(self.translator.translate("selection_mistake"))
                 return None
 
     def download_selected(self):
@@ -419,7 +427,7 @@ class Movies:
         response = self.qbt_client.torrents_add(urls=self.link)
 
         if response != "Ok.":
-            raise Exception("Failed to add torrent.")
+            raise Exception(self.translator.translate("torrent_error"))
 
         torrents = list(self.qbt_client.torrents_info())
         progress_percentage = torrents[0].progress * 100
@@ -453,7 +461,7 @@ class Movies:
     def exit_application(self, signal, frame):
         print(
             Fore.CYAN
-            + "\nExiting application. Thanks for using the software! 😘"
+            + f"\n{self.translator.translate('exit_message')}"
             + Style.RESET_ALL
         )
         try:
@@ -513,16 +521,17 @@ class Movies:
         self.logo()
         print(
             Fore.YELLOW
-            + "Please use this responsibly im not be responsible for any illegal thing u do"
+            + self.translator.translate("disclaimer")
         )
-        print(Fore.YELLOW + "\n1. Audios 🎵" + Style.RESET_ALL)
-        print(Fore.YELLOW + "\n2. Movies/Videos 🎥" + Style.RESET_ALL)
-        print(Fore.YELLOW + "\n3. Softwares" + Style.RESET_ALL)
-        print(Fore.YELLOW + "\n4. Games 🎮" + Style.RESET_ALL)
-        print(Fore.YELLOW + "\n5. Porn 🔞" + Style.RESET_ALL)
-        print(Fore.YELLOW + "\n6. Other" + Style.RESET_ALL)
+        # continue from here
+        print(Fore.YELLOW + f"\n1. {self.translator.translate('audio')}" + Style.RESET_ALL)
+        print(Fore.YELLOW + f"\n2. {self.translator.translate('movie')}" + Style.RESET_ALL)
+        print(Fore.YELLOW + f"\n3. {self.translator.translate('software')}" + Style.RESET_ALL)
+        print(Fore.YELLOW + f"\n4. {self.translator.translate('games')}" + Style.RESET_ALL)
+        print(Fore.YELLOW + f"\n5. {self.translator.translate('porn')}" + Style.RESET_ALL)
+        print(Fore.YELLOW + f"\n6. {self.translator.translate('other')}" + Style.RESET_ALL)
         category = input(
-            Fore.YELLOW + "\n\nWhat you wanna download > " + Style.RESET_ALL
+            Fore.YELLOW + f"\n\n{self.translator.translate('ask')}" + Style.RESET_ALL
         )
         if category == "1":
             self.search = "audio"
@@ -544,10 +553,10 @@ class Movies:
         except Exception:
             print(
                 Fore.RED
-                + "\nPlease enter the movie name correctly.\n"
+                + f"\n{self.translator.translate('incorrect_movie_name')}\n"
                 + Style.RESET_ALL
             )
-            input('press enter to continue...')
+            input(self.translator.translate("continue"))
             self.driver.quit()
             sys.exit()
         movie_elements = self.driver.find_elements(By.CLASS_NAME, "card-body")
@@ -578,8 +587,8 @@ class Movies:
         self.logo()
 
         if not self.picture:
-            print(f"{self.movie_name} does not exist or not found.")
-            print("Please try a different server.")
+            print(f"{self.movie_name} {self.translator.translate('movie_doesnt_exist')}")
+            print(self.translator.translate("diff_server"))
 
         for i, movie in enumerate(self.picture):
             type = self.types[i]
@@ -590,9 +599,9 @@ class Movies:
                 f"\n{i}. {movie} - is: {type} - released on: {year}" + Fore.CYAN
             )
 
-        print(Fore.RED + "\ne - Exit application" + Fore.RED)
+        print(Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
 
-        self.picked = input("\nEnter which one you watch > ")
+        self.picked = input(self.translator.translate("what_to_watch"))
 
     def user_input(self):
         self.clear()
@@ -613,10 +622,10 @@ class Movies:
                     elif self.types[r] == 'Series':
                         self.series()
                 else:
-                    print("Invalid input. Please enter a valid number.")
+                    print(self.translator.translate("invalid_number"))
                     return None
             except ValueError:
-                print("Invalid input. Please enter a valid number.")
+                print(self.translator.translate("invalid_number"))
                 return None
 
     def series(self):
@@ -632,7 +641,7 @@ class Movies:
             print(f"{index} {Fore.YELLOW}{season_name}{Style.RESET_ALL}")
 
         selected_season_index = int(
-            input("Enter the number corresponding to the season you want to explore: "))
+            input(self.translator.translate("season_selection")))
 
         if 1 <= selected_season_index <= len(self.season):
             selected_season_name = self.season[selected_season_index - 1]
@@ -658,22 +667,22 @@ class Movies:
                     f"{index} {episode_number} {Fore.CYAN}{episode_title}{Style.RESET_ALL}")
 
             selected_episode_number = int(
-                input("\nEnter the number corresponding to the episode you want to explore: "))
+                input(self.translator.translate("episode_selection")))
 
             if 1 <= selected_episode_number <= len(selected_season_episodes):
                 self.ep_link = selected_season_episodes[selected_episode_number - 1].find_element(
                     By.CLASS_NAME, "episode").get_attribute("href")
                 self.driver.get(self.ep_link)
             else:
-                print("Invalid episode number selected.")
+                print(self.translator.translate("inavlid_episode_number"))
         else:
-            print("Invalid season number selected.")
+            print(self.translator.translate("invalid_season_number"))
 
     def watch_online(self):
         self.clear()
         self.logo()
         self.driver.get('https://uflix.to/')
-        print(Fore.GREEN + 'Using The best server to get the movies' + Fore.GREEN)
+        print(Fore.GREEN + self.translator.translate("movie_search_server") + Fore.GREEN)
         search = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="search"]'))
         )
@@ -715,7 +724,7 @@ class Movies:
         self.clear()
         self.logo()
         print(Fore.LIGHTGREEN_EX +
-              'Done extracting source plz wait a few seconds \nsorry for delay')
+              self.translator.translate("source_extraction"))
         with open('frames.html', 'r', encoding='utf-8') as file:
             html_content = file.read()
 
@@ -828,13 +837,13 @@ class Movies:
             </head>
             <body>
                 <iframe src="https://2anime.xyz/embed/{movie}-dub-episode-{self.ep_no}" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen></iframe>
-                <p>If loading takes too long plz try sub dont use dub</p>
+                <p>{self.translator.translate("anime_web_error")}</p>
             </body>
             </html>
             """)
         else:
-            print('sorry invalid sub dub selection')
-            input('Press enter to continue...')
+            print(self.translator.translate("sub_dub_selection_error"))
+            input(self.translator.translate("continue"))
             raise SystemExit
         self.port = 8844
         os.chdir(tempfile.gettempdir())
@@ -851,7 +860,7 @@ class Movies:
             f'http://ouo.io/api/uSRW4WFH?s=http://localhost:{self.port}/{os.path.basename(self.html_filename)}')
         if response.status_code == 200:
             self.shortened_link = response.text
-        print(self.shortened_link)
+        print(self.shortened_link + self.translator.translate("open_web_watch"))
         self.play()
 
     def play(self):
@@ -860,16 +869,16 @@ class Movies:
     def hindi(self):
         self.clear()
         self.logo()
-        print('searching all the internet plz wait it may take time')
+        print(self.translator.translate("all_internet_message"))
         self.driver.get(f'https://desicinemas.tv/?s={self.movie_name}')
-    
+
     def get_hindi_list(self):
         ...
 
     def tamilyogi(self):
         self.clear()
         self.logo()
-        print('searching all the tamilrockers database...')
+        print(self.translator.translate("tamilrockers_database"))
         self.driver.get(f'https://tamilyogi.red/?s={self.movie_name}')
 
     def get_list(self):
@@ -896,8 +905,8 @@ class Movies:
         self.logo()
 
         if not self.picture:
-            print(f"The {self.movie_name} does not exist or not found.")
-            print("Please try a different server.")
+            print(f"{self.movie_name} {self.translator.translate('movie_doesnt_exist')}")
+            print(self.translator.translate("diff_server"))
 
         for i, movie in enumerate(self.picture):
             print(
@@ -905,8 +914,8 @@ class Movies:
                 f"\n{i}. {movie}" + Fore.CYAN
             )
 
-        print(Fore.RED + "\ne - Exit application" + Fore.RED)
-        self.picked = input('\n\nPlz enter what u want to watch > ')
+        print(Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
+        self.picked = input(f'\n\n{self.translator.translate("what_to_watch")}')
 
     def user_selected(self):
         self.clear()
@@ -922,16 +931,16 @@ class Movies:
                     selected_link = self.urls[r]
                     self.driver.get(selected_link)
                 else:
-                    print("Invalid input. Please enter a valid number.")
+                    print(self.translator.translate("invalid_number"))
                     return None
             except ValueError:
-                print("Invalid input. Please enter a valid number.")
+                print(self.translator.translate("invalid_number"))
                 return None
 
     def extract_html(self):
         self.clear()
         self.logo()
-        print('Plz wait this may take some time')
+        print(self.translator.translate("wait_"))
         WebDriverWait(self.driver, 10).until(
             EC.frame_to_be_available_and_switch_to_it((By.TAG_NAME, 'iframe')))
 
@@ -960,8 +969,8 @@ class Movies:
             host.start()
             self.driver.quit()
         except:
-            print('sorry the movie is not available or has been deleted :(')
-            input('press enter to continue...')
+            print(self.translator.translate("not_available_error"))
+            input(self.translator.translate("continue"))
             self.driver.quit()
             raise SystemExit
 
@@ -992,22 +1001,22 @@ class Movies:
     def server_selection_menu(self):
         self.clear()
         self.logo()
-        print(Fore.YELLOW + "Torrent download servers:" + Style.RESET_ALL)
+        print(Fore.YELLOW + self.translator.translate("server") + Style.RESET_ALL)
         print(
             Fore.YELLOW
-            + "1. Server 1(almost anything using torrents)"
+            + self.translator.translate("1")
             + Style.RESET_ALL
         )
-        print(Fore.YELLOW + "2. Anime server(download animes)" + Style.RESET_ALL)
+        print(Fore.YELLOW + self.translator.translate("2") + Style.RESET_ALL)
 
-        print(Fore.RED + '\n\nWatch online servers:(movies only)' + Style.RESET_ALL)
-        print(Fore.CYAN + '\n3. Watch online(all language movies available no dubs)' + Style.RESET_ALL)
-        print(Fore.CYAN + '\n4. Hindi movies (only movies but all dubs are available)' + Style.RESET_ALL)
-        print(Fore.CYAN + '\n5. Tamil movies/series (dubbed)' + Style.RESET_ALL)
-        print(Fore.CYAN + '\n6. anime (sub-dub)' + Style.RESET_ALL)
-        print(Fore.CYAN + "More adding soon" + Style.RESET_ALL)
+        print(Fore.RED + self.translator.translate("web") + Style.RESET_ALL)
+        print(Fore.CYAN + self.translator.translate("3") + Style.RESET_ALL)
+        print(Fore.CYAN + self.translator.translate("4") + Style.RESET_ALL)
+        print(Fore.CYAN + self.translator.translate("5") + Style.RESET_ALL)
+        print(Fore.CYAN + self.translator.translate("6") + Style.RESET_ALL)
+        print(Fore.CYAN + self.translator.translate("more") + Style.RESET_ALL)
         server_choice = input(
-            Fore.YELLOW + "\nEnter your choice: " + Style.RESET_ALL
+            Fore.YELLOW + self.translator.translate("enter") + Style.RESET_ALL
         )
         if server_choice == "1":
             self.search_category()
@@ -1015,7 +1024,7 @@ class Movies:
             self.logo()
             self.movie_name = input(
                 Fore.YELLOW
-                + f"Enter name of {movie_instance.search} > "
+                + f"{self.translator.translate('movie_name')} {movie_instance.search} > "
                 + Style.RESET_ALL
             )
             self.open_site()
@@ -1025,15 +1034,14 @@ class Movies:
             self.download_selected()
             print(
                 Fore.GREEN
-                + "\nDownload complete. Thanks for using my software! 😘"
+                + self.translator.translate("Thanks")
                 + Style.RESET_ALL
             )
-            os.system("pause")
         elif server_choice == "2":
-            print(Fore.LIGHTGREEN_EX + "Coming soon" + Style.RESET_ALL)
+            print(Fore.LIGHTGREEN_EX + self.translator.translate("soon") + Style.RESET_ALL)
             os.system("taskkill /f /im chrome.exe")
             os.system("taskkill /f /im chromedriver.exe")
-            input("Press Enter to continue...")
+            input(self.translator.translate("continue"))
             self.driver.quit()
             raise SystemExit
         elif server_choice == '3':
@@ -1041,7 +1049,7 @@ class Movies:
             self.logo()
             self.movie_name = input(
                 Fore.YELLOW
-                + "Enter name of movie/series > "
+                + self.translator.translate("movie_series_name")
                 + Style.RESET_ALL
             )
             self.watch_online()
@@ -1053,7 +1061,7 @@ class Movies:
         elif server_choice == '4':
             self.clear()
             self.logo()
-            print('Sorry guys this is still under development will be available soon')
+            print(self.translator.translate("under_development"))
             # print(Fore.RED + 'Make sure use vpn or enable proxy from the software')
             # self.movie_name = input(
             #     Fore.YELLOW
@@ -1071,7 +1079,7 @@ class Movies:
             self.logo()
             self.movie_name = input(
                 Fore.YELLOW
-                + "Enter name of movie/series > "
+                + self.translator.translate("movie_series_name")
                 + Style.RESET_ALL
             )
             self.tamilyogi()
@@ -1086,38 +1094,43 @@ class Movies:
             self.driver.quit()
             self.sub_dub = input(
                 Fore.YELLOW
-                + "how you want to watch Sub or dub (s/d)> "
+                + self.translator.translate("sub_dub")
                 + Style.RESET_ALL
             )
             self.movie_name = input(
                 Fore.YELLOW
-                + "Enter name of the anime (plz dont make spelling mistake) > "
+                + self.translator.translate("anime_name")
                 + Style.RESET_ALL
             )
             self.ep_no = input(
                 Fore.YELLOW
-                + "Episode number > "
+                + self.translator.translate("ep_no")
                 + Style.RESET_ALL
             )
             self.aniwatch()
         else:
             print(
-                Fore.RED + "Invalid choice. Please enter 1, 2, 3, 4, 5" + Style.RESET_ALL)
+                Fore.RED + self.translator.translate("ep_selection_error") + Style.RESET_ALL)
+    @staticmethod
+    def check(translator):
+        if platform.system() == "Windows":
+            if not Movies.check_chrome_installed():
+                print(translator.translate("chrome_isnt_installed"))
+                input(translator.translate('continue'))
+                sys.exit()
+            if not Movies.is_qbittorrent_installed():
+                print(translator.translate("qbittorrent_isnt_installed"))
+                input(translator.translate("continue"))
+                sys.exit()
+        else:
+            print(translator.translate("check_message"))
+
 
 
 if __name__ == "__main__":
-    locale = input('Enter your language code[eg. en,ru]: ')
-    if platform.system() == "Windows":
-        if not Movies.check_chrome_installed():
-            print("Please install Chrome to run the code.")
-            input("Press Enter to continue")
-            sys.exit()
-        if not Movies.is_qbittorrent_installed():
-            print("Please install qBittorrent to run the code.")
-            input("Press Enter to continue")
-            sys.exit()
-    else:
-        print('make sure u have installed chrome and qbittorrent plz')
+    locale = input('Enter your language code [eg. en, ru]: ')
+    translator = Translator(language=locale)
+    Movies.check(translator)
     movie_instance = Movies(language=locale)
     movie_instance.setup_signal_handling()
     movie_instance.server_selection_menu()

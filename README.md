@@ -44,6 +44,8 @@ removed google elements update as it was giving a lots of trouble
 4. Ensure that **qBittorrent** is running before launching **FG_Torrents**.
 5. Run the software **FG_Torrents.exe** and follow the on-screen instructions.
 6. Make sure that proxy.txt and chrome.crx next to the FG_Torrents.exe in same directory
+7. In qbittorrent enable web ui from settings
+8. user: admin, password: administrator (web_ui)
 
 ## Proxy/VPN
 
