@@ -2,7 +2,7 @@
     "use_proxy": "Do you want to use a proxy?",
     "not_proxy_error": "Invalid input. Defaulting to not using proxy.",
     "old_version": "You are using an old version.\nThe latest version is",
-    "suggest_latest": "Download latest version for extra experience\nThanks",
+    "suggest_latest": "Please download the latest version for additional features",
     "latest": "You are using the latest version..",
     "server_one": "Using server 1",
     "cooking": "Let me cook plz wait this may take some time... ",
