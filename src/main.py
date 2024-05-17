@@ -42,8 +42,9 @@ warnings.filterwarnings("ignore")
 BLOCKED_FILE = "block-inspect.js"
 
 
-class Handler(http.server.SimpleHTTPRequestHandler):
-    pass
+class QuietHandler(http.server.SimpleHTTPRequestHandler):
+    def log_message(self, format, *args):
+        pass
 
 
 class Translator:
@@ -791,10 +792,25 @@ class Movies:
         </body>
         </html>
         """)
+
+        def is_port_in_use(port):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                return sock.connect_ex(('localhost', port)) == 0
+
+        def start_server():
+            httpd = socketserver.TCPServer(("", self.port), QuietHandler)
+            httpd.serve_forever()
         self.port = 8844
         os.chdir(tempfile.gettempdir())
-        httpd = socketserver.TCPServer(("", self.port), Handler)
-        httpd.serve_forever()
+        if not is_port_in_use(self.port):
+            server_thread = threading.Thread(target=start_server)
+            server_thread.daemon = True
+            server_thread.start()
+        else:
+            print(self.translator.translate('server_running'))
+        user_input = input(self.translator.translate("main_menu"))
+        if user_input.lower() in ['yes', 'y']:
+            self.server_selection_menu()
 
     def aniwatch(self):
         self.html_filename = os.path.join(
@@ -862,7 +878,7 @@ class Movies:
                 return sock.connect_ex(('localhost', port)) == 0
 
         def start_server():
-            httpd = socketserver.TCPServer(("", self.port), Handler)
+            httpd = socketserver.TCPServer(("", self.port), QuietHandler)
             httpd.serve_forever()
 
         self.port = 8844
@@ -1024,8 +1040,25 @@ class Movies:
             html_file.write(self.src)
         self.port = 8844
         os.chdir(tempfile.gettempdir())
-        httpd = socketserver.TCPServer(("", self.port), Handler)
-        httpd.serve_forever()
+
+        def is_port_in_use(port):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                return sock.connect_ex(('localhost', port)) == 0
+
+        def start_server():
+            httpd = socketserver.TCPServer(("", self.port), QuietHandler)
+            httpd.serve_forever()
+        self.port = 8844
+        os.chdir(tempfile.gettempdir())
+        if not is_port_in_use(self.port):
+            server_thread = threading.Thread(target=start_server)
+            server_thread.daemon = True
+            server_thread.start()
+        else:
+            print(self.translator.translate('server_running'))
+        user_input = input(self.translator.translate("main_menu"))
+        if user_input.lower() in ['yes', 'y']:
+            self.server_selection_menu()
 
     def server_selection_menu(self):
         self.clear()
