@@ -18,6 +18,8 @@ import threading
 import requests
 from extractor import extract
 import webbrowser
+import socket
+import socketserver
 import json
 
 import chromedriver_autoinstaller
@@ -370,7 +372,8 @@ class Movies:
                 f"\n{i}. {movie} - Uploaded By: {uled_by_value}" + Fore.CYAN
             )
 
-        print(Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
+        print(
+            Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
 
     def server2(self):
         ...
@@ -524,14 +527,21 @@ class Movies:
             + self.translator.translate("disclaimer")
         )
         # continue from here
-        print(Fore.YELLOW + f"\n1. {self.translator.translate('audio')}" + Style.RESET_ALL)
-        print(Fore.YELLOW + f"\n2. {self.translator.translate('movie')}" + Style.RESET_ALL)
-        print(Fore.YELLOW + f"\n3. {self.translator.translate('software')}" + Style.RESET_ALL)
-        print(Fore.YELLOW + f"\n4. {self.translator.translate('games')}" + Style.RESET_ALL)
-        print(Fore.YELLOW + f"\n5. {self.translator.translate('porn')}" + Style.RESET_ALL)
-        print(Fore.YELLOW + f"\n6. {self.translator.translate('other')}" + Style.RESET_ALL)
+        print(Fore.YELLOW +
+              f"\n1. {self.translator.translate('audio')}" + Style.RESET_ALL)
+        print(Fore.YELLOW +
+              f"\n2. {self.translator.translate('movie')}" + Style.RESET_ALL)
+        print(Fore.YELLOW +
+              f"\n3. {self.translator.translate('software')}" + Style.RESET_ALL)
+        print(Fore.YELLOW +
+              f"\n4. {self.translator.translate('games')}" + Style.RESET_ALL)
+        print(Fore.YELLOW +
+              f"\n5. {self.translator.translate('porn')}" + Style.RESET_ALL)
+        print(Fore.YELLOW +
+              f"\n6. {self.translator.translate('other')}" + Style.RESET_ALL)
         category = input(
-            Fore.YELLOW + f"\n\n{self.translator.translate('ask')}" + Style.RESET_ALL
+            Fore.YELLOW +
+            f"\n\n{self.translator.translate('ask')}" + Style.RESET_ALL
         )
         if category == "1":
             self.search = "audio"
@@ -557,8 +567,7 @@ class Movies:
                 + Style.RESET_ALL
             )
             input(self.translator.translate("continue"))
-            self.driver.quit()
-            sys.exit()
+            self.server_selection_menu()
         movie_elements = self.driver.find_elements(By.CLASS_NAME, "card-body")
         url_element = self.driver.find_elements(
             By.XPATH, "//a[@class='card card-movie']")
@@ -587,7 +596,8 @@ class Movies:
         self.logo()
 
         if not self.picture:
-            print(f"{self.movie_name} {self.translator.translate('movie_doesnt_exist')}")
+            print(
+                f"{self.movie_name} {self.translator.translate('movie_doesnt_exist')}")
             print(self.translator.translate("diff_server"))
 
         for i, movie in enumerate(self.picture):
@@ -599,7 +609,8 @@ class Movies:
                 f"\n{i}. {movie} - is: {type} - released on: {year}" + Fore.CYAN
             )
 
-        print(Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
+        print(
+            Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
 
         self.picked = input(self.translator.translate("what_to_watch"))
 
@@ -844,13 +855,29 @@ class Movies:
         else:
             print(self.translator.translate("sub_dub_selection_error"))
             input(self.translator.translate("continue"))
-            raise SystemExit
+            self.server_selection_menu()
+
+        def is_port_in_use(port):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                return sock.connect_ex(('localhost', port)) == 0
+
+        def start_server():
+            httpd = socketserver.TCPServer(("", self.port), Handler)
+            httpd.serve_forever()
+
         self.port = 8844
         os.chdir(tempfile.gettempdir())
-        httpd = socketserver.TCPServer(("", self.port), Handler)
         thread = threading.Thread(target=self.shorten_video_link(),)
         thread.start()
-        httpd.serve_forever()
+        if not is_port_in_use(self.port):
+            server_thread = threading.Thread(target=start_server)
+            server_thread.daemon = True
+            server_thread.start()
+        else:
+            print(self.translator.translate('server_running'))
+        user_input = input(self.translator.translate("main_menu"))
+        if user_input.lower() in ['yes', 'y']:
+            self.server_selection_menu()
 
     def generate_random_string(self, length=8):
         return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
@@ -905,7 +932,8 @@ class Movies:
         self.logo()
 
         if not self.picture:
-            print(f"{self.movie_name} {self.translator.translate('movie_doesnt_exist')}")
+            print(
+                f"{self.movie_name} {self.translator.translate('movie_doesnt_exist')}")
             print(self.translator.translate("diff_server"))
 
         for i, movie in enumerate(self.picture):
@@ -914,8 +942,10 @@ class Movies:
                 f"\n{i}. {movie}" + Fore.CYAN
             )
 
-        print(Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
-        self.picked = input(f'\n\n{self.translator.translate("what_to_watch")}')
+        print(
+            Fore.RED + f"\n{self.translator.translate('exit_option')}" + Fore.RED)
+        self.picked = input(
+            f'\n\n{self.translator.translate("what_to_watch")}')
 
     def user_selected(self):
         self.clear()
@@ -971,8 +1001,7 @@ class Movies:
         except:
             print(self.translator.translate("not_available_error"))
             input(self.translator.translate("continue"))
-            self.driver.quit()
-            raise SystemExit
+            self.server_selection_menu()
 
     def inject_scripts(self, html_content, script_tags):
         # Find the position to inject the script tags (before </body> tag)
@@ -1038,12 +1067,12 @@ class Movies:
                 + Style.RESET_ALL
             )
         elif server_choice == "2":
-            print(Fore.LIGHTGREEN_EX + self.translator.translate("soon") + Style.RESET_ALL)
+            print(Fore.LIGHTGREEN_EX +
+                  self.translator.translate("soon") + Style.RESET_ALL)
             os.system("taskkill /f /im chrome.exe")
             os.system("taskkill /f /im chromedriver.exe")
             input(self.translator.translate("continue"))
-            self.driver.quit()
-            raise SystemExit
+            self.server_selection_menu()
         elif server_choice == '3':
             self.clear()
             self.logo()
@@ -1091,7 +1120,6 @@ class Movies:
         elif server_choice == '6':
             self.clear()
             self.logo()
-            self.driver.quit()
             self.sub_dub = input(
                 Fore.YELLOW
                 + self.translator.translate("sub_dub")
@@ -1111,6 +1139,7 @@ class Movies:
         else:
             print(
                 Fore.RED + self.translator.translate("ep_selection_error") + Style.RESET_ALL)
+
     @staticmethod
     def check(translator):
         if platform.system() == "Windows":
@@ -1124,7 +1153,6 @@ class Movies:
                 sys.exit()
         else:
             print(translator.translate("check_message"))
-
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@
     "source_extraction": "Done extracting source plz wait a few seconds \nsorry for delay",
     "anime_web_error": "If loading takes too long make sure you entered anime name right or plz try sub dont use dub",
     "sub_dub_selection_error": "sorry invalid sub dub selection",
-    "open_web_watch": "open this link if nothing popped up",
+    "open_web_watch": " open this link if nothing popped up",
     "all_internet_message": "searching all the internet plz wait it may take time",
     "tamilrockers_database": "searching all the tamilrockers database...",
     "wait_": "Plz wait this may take some time",
@@ -63,5 +63,7 @@
     "ep_selection_error": "Invalid choice. Please enter 1, 2, 3, 4, 5",
     "chrome_isnt_installed": "Please install Chrome to run the code.",
     "qbittorrent_isnt_installed": "Please install qBittorrent to run the code.",
-    "check_message": "make sure u have installed chrome and qbittorrent plz"
+    "check_message": "make sure u have installed chrome and qbittorrent plz",
+    "main_menu": "Do you want to return to main menu (y/n)> ",
+    "server_running": "server already running"
 }
