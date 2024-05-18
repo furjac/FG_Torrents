@@ -60,7 +60,7 @@
     "sub_dub": "how you want to watch Sub or dub (s/d)> ",
     "anime_name": "Enter name of the anime (plz dont make spelling mistake) > ",
     "ep_no": "Episode number > ",
-    "ep_selection_error": "Invalid choice. Please enter 1, 2, 3, 4, 5",
+    "server_selection_error": "Invalid choice. Please enter 1, 2, 3, 4, 5, 6",
     "chrome_isnt_installed": "Please install Chrome to run the code.",
     "qbittorrent_isnt_installed": "Please install qBittorrent to run the code.",
     "check_message": "make sure u have installed chrome and qbittorrent plz",

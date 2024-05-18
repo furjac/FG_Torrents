@@ -60,7 +60,7 @@
     "sub_dub": "どのように視聴したいですか サブまたはダブ (s/d)> ",
     "anime_name": "アニメの名前を入力してください（スペルミスしないでください） > ",
     "ep_no": "エピソード番号 > ",
-    "ep_selection_error": "無効な選択です。1, 2, 3, 4, 5を入力してください",
+    "server_selection_error": "無効な選択です。1, 2, 3, 4, 5, 6を入力してください",
     "chrome_isnt_installed": "コードを実行するにはChromeをインストールしてください。",
     "qbittorrent_isnt_installed": "コードを実行するにはqBittorrentをインストールしてください。",
     "check_message": "ChromeとqBittorrentがインストールされていることを確認してください",

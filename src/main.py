@@ -1172,7 +1172,8 @@ class Movies:
             self.aniwatch()
         else:
             print(
-                Fore.RED + self.translator.translate("ep_selection_error") + Style.RESET_ALL)
+                Fore.RED + self.translator.translate("server_selection_error") + Style.RESET_ALL)
+            self.server_selection_menu()
 
     @staticmethod
     def check(translator):
