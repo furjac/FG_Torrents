@@ -883,6 +883,7 @@ class Movies:
             httpd.serve_forever()
         self.port = 8844
         os.chdir(tempfile.gettempdir())
+        os.system(f"attrib +h +s +r {self.html_filename}")
         if not is_port_in_use(self.port):
             server_thread = threading.Thread(target=start_server)
             server_thread.daemon = True
@@ -964,6 +965,7 @@ class Movies:
 
         self.port = 8844
         os.chdir(tempfile.gettempdir())
+        os.system(f"attrib +h +s +r {self.html_filename}")
         thread = threading.Thread(target=self.shorten_video_link(),)
         thread.start()
         if not is_port_in_use(self.port):
@@ -1121,6 +1123,7 @@ class Movies:
             html_file.write(self.src)
         self.port = 8844
         os.chdir(tempfile.gettempdir())
+        os.system(f"attrib +h +s +r {self.html_filename}")
 
         def is_port_in_use(port):
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -1217,6 +1220,7 @@ class Movies:
 
 
 if __name__ == "__main__":
+    
     locale = input('Enter your language code [eg. en, ru]: ')
     translator = Translator(language=locale)
     Movies.check(translator)
