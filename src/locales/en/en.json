@@ -65,5 +65,7 @@
     "qbittorrent_isnt_installed": "Please install qBittorrent to run the code.",
     "check_message": "make sure u have installed chrome and qbittorrent plz",
     "main_menu": "Do you want to return to main menu (y/n)> ",
-    "server_running": "server already running"
+    "server_running": "server already running",
+    "kill": "\n\nkill unwanted chrome process",
+    "chrome_driver": "\n7. kill chrome.exe and chromedriver.exe (if ur only using watch online server) "
 }

@@ -225,6 +225,86 @@ class Movies:
         self.driver.execute_cdp_cmd(
             "Network.setBlockedURLs", {"urls": blocked_urls})
 
+    def torrent(self):
+        self.search_category()
+        self.clear()
+        self.logo()
+        self.movie_name = input(
+            Fore.YELLOW
+            + f"{self.translator.translate('movie_name')} {movie_instance.search} > "
+            + Style.RESET_ALL
+        )
+        self.open_site()
+        self.find_and_list()
+        self.check_and_arrange_list()
+        self.take_user_input()
+        self.download_selected()
+        print(
+            Fore.GREEN
+            + self.translator.translate("Thanks")
+            + Style.RESET_ALL
+        )
+
+    def watch_online_(self):
+        self.clear()
+        self.logo()
+        self.movie_name = input(
+            Fore.YELLOW
+            + self.translator.translate("movie_series_name")
+            + Style.RESET_ALL
+        )
+        self.watch_online()
+        self.checked_list()
+        self.user_input()
+        self.extract_embed_video()
+        time.sleep(5)
+        self.shorten_video_link()
+
+    def tamil_movies_watch_online(self):
+        self.clear()
+        self.logo()
+        self.movie_name = input(
+            Fore.YELLOW
+            + self.translator.translate("movie_series_name")
+            + Style.RESET_ALL
+        )
+        self.tamilyogi()
+        self.get_list()
+        self.list_tamil()
+        self.user_selected()
+        self.extract_html()
+        self.shorten_video_link()
+
+    def anime_watch_online(self):
+        self.clear()
+        self.logo()
+        self.sub_dub = input(
+            Fore.YELLOW
+            + self.translator.translate("sub_dub")
+            + Style.RESET_ALL
+        )
+        self.movie_name = input(
+            Fore.YELLOW
+            + self.translator.translate("anime_name")
+            + Style.RESET_ALL
+        )
+        self.ep_no = input(
+            Fore.YELLOW
+            + self.translator.translate("ep_no")
+            + Style.RESET_ALL
+        )
+        self.aniwatch()
+
+    def killer(self):
+        self.clear()
+        self.logo()
+        print('Killing all the chrome.exe and chromedriver.exe')
+        os.system('taskkill /f /im chrome.exe')
+        os.system('taskkill /f /im chromedriver.exe')
+        print('done !')
+        os.system('pause')
+        self.server_selection_menu()
+
     def check_version(self):
         current_version = 'FG Torrents 9.0'
         response = requests.get(
@@ -1078,28 +1158,13 @@ class Movies:
         print(Fore.CYAN + self.translator.translate("5") + Style.RESET_ALL)
         print(Fore.CYAN + self.translator.translate("6") + Style.RESET_ALL)
         print(Fore.CYAN + self.translator.translate("more") + Style.RESET_ALL)
+        print(Fore.RED + self.translator.translate('kill'))
+        print(Fore.RED + self.translator.translate('chrome_driver'))
         server_choice = input(
             Fore.YELLOW + self.translator.translate("enter") + Style.RESET_ALL
         )
         if server_choice == "1":
-            self.search_category()
-            self.clear()
-            self.logo()
-            self.movie_name = input(
-                Fore.YELLOW
-                + f"{self.translator.translate('movie_name')} {movie_instance.search} > "
-                + Style.RESET_ALL
-            )
-            self.open_site()
-            self.find_and_list()
-            self.check_and_arrange_list()
-            self.take_user_input()
-            self.download_selected()
-            print(
-                Fore.GREEN
-                + self.translator.translate("Thanks")
-                + Style.RESET_ALL
-            )
+            self.torrent()
         elif server_choice == "2":
             print(Fore.LIGHTGREEN_EX +
                   self.translator.translate("soon") + Style.RESET_ALL)
@@ -1108,19 +1173,7 @@ class Movies:
             input(self.translator.translate("continue"))
             self.server_selection_menu()
         elif server_choice == '3':
-            self.clear()
-            self.logo()
-            self.movie_name = input(
-                Fore.YELLOW
-                + self.translator.translate("movie_series_name")
-                + Style.RESET_ALL
-            )
-            self.watch_online()
-            self.checked_list()
-            self.user_input()
-            self.extract_embed_video()
-            time.sleep(5)
-            self.shorten_video_link()
+            self.watch_online_()
         elif server_choice == '4':
             self.clear()
             self.logo()
@@ -1138,38 +1191,11 @@ class Movies:
             # self.extract_html_hindi()
             # self.shorten_video_link()
         elif server_choice == '5':
-            self.clear()
-            self.logo()
-            self.movie_name = input(
-                Fore.YELLOW
-                + self.translator.translate("movie_series_name")
-                + Style.RESET_ALL
-            )
-            self.tamilyogi()
-            self.get_list()
-            self.list_tamil()
-            self.user_selected()
-            self.extract_html()
-            self.shorten_video_link()
+            self.tamil_movies_watch_online()
         elif server_choice == '6':
-            self.clear()
-            self.logo()
-            self.sub_dub = input(
-                Fore.YELLOW
-                + self.translator.translate("sub_dub")
-                + Style.RESET_ALL
-            )
-            self.movie_name = input(
-                Fore.YELLOW
-                + self.translator.translate("anime_name")
-                + Style.RESET_ALL
-            )
-            self.ep_no = input(
-                Fore.YELLOW
-                + self.translator.translate("ep_no")
-                + Style.RESET_ALL
-            )
-            self.aniwatch()
+            self.anime_watch_online()
+        elif server_choice == '7':
+            self.killer()
         else:
             print(
                 Fore.RED + self.translator.translate("server_selection_error") + Style.RESET_ALL)
