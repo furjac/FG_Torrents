@@ -265,6 +265,7 @@ class Movies:
 
     @staticmethod
     def logo():
+        print()
         print(
             Fore.GREEN
             + pyfiglet.figlet_format(
