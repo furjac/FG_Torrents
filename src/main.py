@@ -70,6 +70,7 @@ class Translator:
 class Movies:
     def __init__(self, language="en"):
         self.translator = Translator(language)
+        self.temp_dir = tempfile.TemporaryDirectory()
         self.check_version()
         self.clear()
         self.use_proxy = False
@@ -550,11 +551,10 @@ class Movies:
             + Style.RESET_ALL
         )
         try:
-            self.qbt_client.auth_log_out()
             os.system("taskkill /f /im chrome.exe")
             os.system("taskkill /f /im chromedriver.exe")
-        except:
-            ...
+        except subprocess.SubprocessError as e:
+            print(f"An error occurred while killing processes: {e}")
         sys.exit()
 
     def setup_signal_handling(self):
@@ -840,7 +840,7 @@ class Movies:
 
     def host(self):
         self.html_filename = os.path.join(
-            tempfile.gettempdir(), self.generate_random_string() + ".html")
+            self.temp_dir.name, self.generate_random_string() + ".html")
         css = """
             <style>
                 html, body {
@@ -882,7 +882,7 @@ class Movies:
             httpd = socketserver.TCPServer(("", self.port), QuietHandler)
             httpd.serve_forever()
         self.port = 8844
-        os.chdir(tempfile.gettempdir())
+        os.chdir(self.temp_dir.name)
         if not is_port_in_use(self.port):
             server_thread = threading.Thread(target=start_server)
             server_thread.daemon = True
@@ -895,7 +895,7 @@ class Movies:
 
     def aniwatch(self):
         self.html_filename = os.path.join(
-            tempfile.gettempdir(), self.generate_random_string() + ".html")
+            self.temp_dir.name, self.generate_random_string() + ".html")
         movie = self.movie_name.lower()
         movie = movie.replace(' ', '-')
         css = """
@@ -963,7 +963,7 @@ class Movies:
             httpd.serve_forever()
 
         self.port = 8844
-        os.chdir(tempfile.gettempdir())
+        os.chdir(self.temp_dir.name)
         thread = threading.Thread(target=self.shorten_video_link(),)
         thread.start()
         if not is_port_in_use(self.port):
@@ -1115,12 +1115,12 @@ class Movies:
 
     def tamil_host(self):
         self.html_filename = os.path.join(
-            tempfile.gettempdir(), self.generate_random_string() + ".html")
+            self.temp_dir.name, self.generate_random_string() + ".html")
 
         with open(self.html_filename, "w+", encoding="utf-8") as html_file:
             html_file.write(self.src)
         self.port = 8844
-        os.chdir(tempfile.gettempdir())
+        os.chdir(self.temp_dir.name)
 
         def is_port_in_use(port):
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -1130,7 +1130,7 @@ class Movies:
             httpd = socketserver.TCPServer(("", self.port), QuietHandler)
             httpd.serve_forever()
         self.port = 8844
-        os.chdir(tempfile.gettempdir())
+        os.chdir(self.temp_dir.name)
         if not is_port_in_use(self.port):
             server_thread = threading.Thread(target=start_server)
             server_thread.daemon = True
@@ -1217,7 +1217,6 @@ class Movies:
 
 
 if __name__ == "__main__":
-    
     locale = input('Enter your language code [eg. en, ru]: ')
     translator = Translator(language=locale)
     Movies.check(translator)
