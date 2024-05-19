@@ -65,5 +65,7 @@
     "qbittorrent_isnt_installed": "コードを実行するにはqBittorrentをインストールしてください。",
     "check_message": "ChromeとqBittorrentがインストールされていることを確認してください",
     "main_menu": "メインメニューに戻りますか (y/n)> ",
-    "server_running": "サーバーはすでに実行中です"
+    "server_running": "サーバーはすでに実行中です",
+    "kill": "\n\n不要なChromeプロセスを終了する",
+    "chrome_driver": "\n7. chrome.exe と chromedriver.exe を終了する（オンラインサーバーのみ使用する場合）"
 }

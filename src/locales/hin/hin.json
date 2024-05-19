@@ -65,5 +65,7 @@
     "qbittorrent_isnt_installed": "कृपया कोड चलाने के लिए qBittorrent इंस्टॉल करें।",
     "check_message": "सुनिश्चित करें कि आपने क्रोम और qBittorrent इंस्टॉल किया है कृपया",
     "main_menu": "क्या आप मुख्य मेनू में लौटना चाहते हैं (y/n)> ",
-    "server_running": "सर्वर पहले से ही चल रहा है"
+    "server_running": "सर्वर पहले से ही चल रहा है",
+    "kill": "\n\nअनचाहे Chrome प्रक्रिया को बंद करें",
+    "chrome_driver": "\n7. chrome.exe और chromedriver.exe को बंद करें (यदि आप केवल ऑनलाइन सर्वर का उपयोग कर रहे हैं) "
 }

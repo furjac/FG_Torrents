@@ -65,5 +65,7 @@
     "qbittorrent_isnt_installed": "Пожалуйста, установите qBittorrent для запуска кода.",
     "check_message": "убедитесь, что у вас установлен Chrome и qBittorrent",
     "main_menu": "Хотите вернуться в главное меню (y/n)> ",
-    "server_running": "сервер уже запущен"
+    "server_running": "сервер уже запущен",
+    "kill": "\n\nзавершить ненужный процесс Chrome",
+    "chrome_driver": "\n7. завершить chrome.exe и chromedriver.exe (если вы используете только онлайн-сервер)"
 }
