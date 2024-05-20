@@ -69,6 +69,7 @@ class Translator:
 
 class Movies:
     def __init__(self, language="en"):
+        self.current_dir = os.getcwd()
         self.translator = Translator(language)
         self.temp_dir = tempfile.TemporaryDirectory()
         self.check_version()
@@ -545,6 +546,7 @@ class Movies:
         self.qbt_client.auth_log_out()
 
     def exit_application(self, signal, frame):
+        os.chdir(self.current_dir)
         print(
             Fore.CYAN
             + f"\n{self.translator.translate('exit_message')}"
