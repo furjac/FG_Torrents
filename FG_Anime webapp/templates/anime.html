@@ -99,7 +99,7 @@
 </head>
 <body>
     <div class="topbar">
-        <div class="site-name">My Anime Site</div>
+        <div class="site-name">FG Anime</div>
         <div class="controls">
             <div class="search-box">
                 <form action="/search" method="get">
@@ -136,109 +136,26 @@
     </div>
     <script src="/static/theme.js"></script>
     <script>
-        let currentEpisodeType = '{{ episode_type }}';
-
         function setEpisodeStart(start) {
-            const currentEpisode = document.getElementById('anime-iframe').getAttribute('src');
-            const episode = getUrlParameter('episode', currentEpisode);
-
-            let newUrl = `/anime/{{ anime_name }}?episode=${start}&type=${currentEpisodeType}`;
-            document.getElementById('anime-iframe').setAttribute('src', newUrl);
-
-            // Update sidebar episode highlighting
-            const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
-            sidebarLinks.forEach(link => {
-                link.classList.remove('selected');
-                if (link.textContent.trim() === start.toString()) {
-                    link.classList.add('selected');
-                }
-            });
-
-            // Update episode range selection
-            const episodeRangeSelect = document.getElementById('episode-range');
-            const selectedOption = Array.from(episodeRangeSelect.options).find(option => {
-                const [rangeStart, rangeEnd] = option.value.split('-').map(Number);
-                return start >= rangeStart && start <= (rangeEnd || Infinity);
-            });
-
-            if (selectedOption) {
-                episodeRangeSelect.value = selectedOption.value;
-            }
-
-            // Update episode type buttons
-            const subButton = document.getElementById('sub-button');
-            const dubButton = document.getElementById('dub-button');
-            subButton.classList.remove('selected');
-            dubButton.classList.remove('selected');
-
-            if (currentEpisodeType === 'sub') {
-                subButton.classList.add('selected');
-            } else if (currentEpisodeType === 'dub') {
-                dubButton.classList.add('selected');
-            }
+            const episodeType = '{{ episode_type }}';
+            window.location.href = `/anime/{{ anime_name }}?episode=${start}&type=${episodeType}`;
         }
 
         function setEpisodeType(type) {
-            const currentEpisode = document.getElementById('anime-iframe').getAttribute('src');
-            const episode = getUrlParameter('episode', currentEpisode);
-            let newUrl;
-
-            if (type === 'dub') {
-                if (currentEpisode.includes('-dub-episode-')) {
-                    // URL already contains '-dub-episode-', no need to replace
-                    newUrl = currentEpisode;
-                } else {
-                    newUrl = currentEpisode.replace(/-episode-/, '-dub-episode-');
-                }
-            } else if (type === 'sub') {
-                if (currentEpisode.includes('-episode-') && !currentEpisode.includes('-dub-episode-')) {
-                    // URL already contains '-episode-' and doesn't contain '-dub-episode-', no need to replace
-                    newUrl = currentEpisode;
-                } else {
-                    newUrl = currentEpisode.replace(/-dub-episode-/, '-episode-');
-                }
-            }
-
-            if (newUrl) {
-                document.getElementById('anime-iframe').setAttribute('src', newUrl);
-
-                // Update button styles
-                const buttons = document.querySelectorAll('.episode-option');
-                buttons.forEach(button => {
-                    button.classList.remove('selected');
-                    if (button.id === type + '-button') {
-                        button.classList.add('selected');
-                    }
-                });
-
-                // Update sidebar episode highlighting
-                const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
-                sidebarLinks.forEach(link => {
-                    link.classList.remove('selected');
-                    if (link.textContent.trim() === episode) {
-                        link.classList.add('selected');
-                    }
-                });
-
-                // Update currentEpisodeType
-                currentEpisodeType = type;
-            }
+            const currentEpisode = {{ episode }};
+            window.location.href = `/anime/{{ anime_name }}?episode=${currentEpisode}&type=${type}`;
         }
 
-        function getUrlParameter(name, url) {
-            name = name.replace(/[\[\]]/g, '\\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
+        // Save current episode to cookies
+        document.getElementById('anime-iframe').addEventListener('load', function() {
+            document.cookie = "{{ anime_name }}_last_episode=" + {{ episode }} + "; max-age=2592000; path=/";  // 30 days
+        });
     </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Disclaimer: In FG anime we don't host or store any files. All media files (embeds, videos, etc.) are hosted on third-party servers that are freely available to watch online for all internet users.</p>
+        </div>
+    </footer>
 </body>
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-    <p>Disclaimer: In FG anime we dont host or store any files All media files (embeds, videos, etc.) are hosted on third-party servers that are freely available to watch online for all internet users.</p>
-    </div>
-</footer>
 </html>
