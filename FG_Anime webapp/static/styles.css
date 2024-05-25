@@ -156,7 +156,6 @@ option {
     bottom: 0;
 }
 
-
 iframe {
     width: 100%;
     height: calc(95% - 40px); /* Adjust to accommodate padding */
@@ -203,7 +202,8 @@ iframe {
 }
 
 [data-theme='light'] .search-box button:hover,
-[data-theme='light'] #theme-toggle:hover {
+[data-theme='light'] #theme-toggle:hover,
+[data-theme='light'] .watch-now {
     background-color: var(--button-hover-color);
 }
 
@@ -247,6 +247,7 @@ iframe {
 }
 
 [data-theme='dark'] .search-box button:hover,
-[data-theme='dark'] #theme-toggle:hover {
+[data-theme='dark'] #theme-toggle:hover,
+[data-theme='dark'] .watch-now {
     background-color: var(--button-hover-color);
 }
