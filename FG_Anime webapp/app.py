@@ -70,10 +70,8 @@ def anime(name):
     episode_type = request.args.get('type', 'sub')
     episode_start = (episode - 1) // 100 * 100 + 1
     embed_url = f"https://2anime.xyz/embed/{name}{'-dub' if episode_type == 'dub' else ''}-episode-{episode}"
-    response = make_response(render_template('anime.html', embed_url=embed_url, anime_name=name,
-                             episode=episode, episode_start=episode_start, episode_type=episode_type))
-    response.set_cookie(f'{name}_last_episode', str(
-        episode), max_age=30*24*60*60)  # Save for 30 days
+    response = make_response(render_template('anime.html', embed_url=embed_url, anime_name=name, episode=episode, episode_start=episode_start, episode_type=episode_type))
+    response.set_cookie(f'{name}_last_episode', str(episode), max_age=30*24*60*60)  # Save for 30 days
     return response
 
 # Route to serve the favicon

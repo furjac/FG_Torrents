@@ -171,14 +171,13 @@
     </div>
     <script src="/static/theme.js"></script>
     <script>
-        function setEpisodeStart(start) {
-            const episodeType = '{{ episode_type }}';
-            window.location.href = `/anime/{{ anime_name }}?episode=${start}&type=${episodeType}`;
+        function setEpisodeType(type) {
+            const currentEpisode = {{ episode }};
+            window.location.href = `/anime/{{ anime_name }}?episode=${currentEpisode}&type=${type}`;
         }
 
         function setEpisodeType(type) {
-            const currentEpisode = {{ episode }
-        };
+            const currentEpisode = {{ episode }};
         window.location.href = `/anime/{{ anime_name }}?episode=${currentEpisode}&type=${type}`;
         }
 
