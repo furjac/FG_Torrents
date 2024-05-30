@@ -8,7 +8,9 @@ import sys
 import tempfile
 import time
 import warnings
-import winreg
+system_name = platform.system()
+if system_name == "Windows":
+    import winreg
 import zipfile
 import socketserver
 import random
