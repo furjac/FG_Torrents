@@ -778,14 +778,9 @@ class Movies:
     def watch_online(self):
         self.clear()
         self.logo()
-        self.driver.get('https://uflix.to/')
-        print(Fore.GREEN + self.translator.translate("movie_search_server") + Fore.GREEN)
-        search = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[@id="search"]'))
-        )
-
-        search.send_keys(self.movie_name)
-        search.send_keys(Keys.ENTER)
+        name = self.movie_name
+        name.replace(' ','+')
+        self.driver.get(f'https://uflix.to/search?keyword={name}')
         self.current_page()
 
         pagination_elements = self.driver.find_elements(
