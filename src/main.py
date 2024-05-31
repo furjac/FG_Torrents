@@ -303,8 +303,13 @@ class Movies:
         self.clear()
         self.logo()
         print('Killing all the chrome.exe and chromedriver.exe')
-        os.system('taskkill /f /im chrome.exe')
-        os.system('taskkill /f /im chromedriver.exe')
+        if platform.system() == 'Windows':
+            os.system('taskkill /f /im chrome.exe')
+            os.system('taskkill /f /im chromedriver.exe')
+        elif platform.system() == 'Linux':
+            os.system('pkill -f chrome')
+            os.system('pkill -f chromedriver')
+        
         print('done !')
         os.system('pause')
         self.server_selection_menu()
@@ -469,8 +474,12 @@ class Movies:
             self.translator.translate("download_number")).strip().lower()
 
         if user_input == "e":
-            subprocess.run("taskkill /f /im chrome.exe", shell=True)
-            subprocess.run("taskkill /f /im chromedriver.exe", shell=True)
+            if platform.system() == 'Windows':
+                os.system('taskkill /f /im chrome.exe')
+                os.system('taskkill /f /im chromedriver.exe')
+            elif platform.system() == 'Linux':
+                os.system('pkill -f chrome')
+                os.system('pkill -f chromedriver')
             raise SystemExit
         else:
             try:
@@ -555,8 +564,12 @@ class Movies:
             + Style.RESET_ALL
         )
         try:
-            os.system("taskkill /f /im chrome.exe")
-            os.system("taskkill /f /im chromedriver.exe")
+            if platform.system() == 'Windows':
+                os.system('taskkill /f /im chrome.exe')
+                os.system('taskkill /f /im chromedriver.exe')
+            elif platform.system() == 'Linux':
+                os.system('pkill -f chrome')
+                os.system('pkill -f chromedriver')
         except subprocess.SubprocessError as e:
             print(f"An error occurred while killing processes: {e}")
         sys.exit()
@@ -704,8 +717,12 @@ class Movies:
         self.clear()
         self.logo()
         if self.picked == "e":
-            subprocess.run("taskkill /f /im chrome.exe", shell=True)
-            subprocess.run("taskkill /f /im chromedriver.exe", shell=True)
+            if platform.system() == 'Windows':
+                os.system('taskkill /f /im chrome.exe')
+                os.system('taskkill /f /im chromedriver.exe')
+            elif platform.system() == 'Linux':
+                os.system('pkill -f chrome')
+                os.system('pkill -f chromedriver')
             raise SystemExit
         else:
             try:
@@ -1047,8 +1064,12 @@ class Movies:
         self.clear()
         self.logo()
         if self.picked == "e":
-            subprocess.run("taskkill /f /im chrome.exe", shell=True)
-            subprocess.run("taskkill /f /im chromedriver.exe", shell=True)
+            if platform.system() == 'Windows':
+                os.system('taskkill /f /im chrome.exe')
+                os.system('taskkill /f /im chromedriver.exe')
+            elif platform.system() == 'Linux':
+                os.system('pkill -f chrome')
+                os.system('pkill -f chromedriver')
             raise SystemExit
         else:
             try:
@@ -1167,8 +1188,12 @@ class Movies:
         elif server_choice == "2":
             print(Fore.LIGHTGREEN_EX +
                   self.translator.translate("soon") + Style.RESET_ALL)
-            os.system("taskkill /f /im chrome.exe")
-            os.system("taskkill /f /im chromedriver.exe")
+            if platform.system() == 'Windows':
+                os.system('taskkill /f /im chrome.exe')
+                os.system('taskkill /f /im chromedriver.exe')
+            elif platform.system() == 'Linux':
+                os.system('pkill -f chrome')
+                os.system('pkill -f chromedriver')
             input(self.translator.translate("continue"))
             self.server_selection_menu()
         elif server_choice == '3':
