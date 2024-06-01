@@ -208,7 +208,6 @@ class Movies:
         self.options.add_experimental_option(
             "excludeSwitches", ["enable-logging"])
         self.options.add_argument("--log-level=3")
-        self.options.add_experimental_option("detach", True)
         self.options.add_experimental_option("useAutomationExtension", False)
         self.options.add_argument(
             "--disable-blink-features=AutomationControlled")
@@ -576,44 +575,6 @@ class Movies:
 
     def setup_signal_handling(self):
         signal.signal(signal.SIGINT, self.exit_application)
-
-    @staticmethod
-    def check_chrome_installed():
-        try:
-            key = winreg.OpenKey(
-                winreg.HKEY_CURRENT_USER, r"Software\Google\Chrome\BLBeacon"
-            )
-            winreg.CloseKey(key)
-            return True
-        except FileNotFoundError:
-            return False
-        except Exception as e:
-            print(f"An error occurred: {e}")
-            return False
-
-    @staticmethod
-    def is_qbittorrent_installed():
-        for path in os.environ["PATH"].split(os.pathsep):
-            exe_path = os.path.join(path, "qbittorrent.exe")
-            if os.path.isfile(exe_path):
-                return True
-
-        known_paths = [
-            r"C:\Program Files\qBittorrent\qbittorrent.exe",
-            r"C:\Program Files (x86)\qBittorrent\qbittorrent.exe",
-        ]
-        for path in known_paths:
-            if os.path.isfile(path):
-                return True
-
-        for root, dirs, files in os.walk("C:\\"):
-            if "qbittorrent.exe" in files:
-                subprocess.Popen(
-                    ["qbittorrent.exe"], shell=True, stdout=subprocess.PIPE
-                )
-                return True
-
-        return False
 
     def anime(self):
         self.driver.get("aniwatchtv.to")
@@ -1225,25 +1186,8 @@ class Movies:
                 Fore.RED + self.translator.translate("server_selection_error") + Style.RESET_ALL)
             self.server_selection_menu()
 
-    @staticmethod
-    def check(translator):
-        if platform.system() == "Windows":
-            if not Movies.check_chrome_installed():
-                print(translator.translate("chrome_isnt_installed"))
-                input(translator.translate('continue'))
-                sys.exit()
-            if not Movies.is_qbittorrent_installed():
-                print(translator.translate("qbittorrent_isnt_installed"))
-                input(translator.translate("continue"))
-                sys.exit()
-        else:
-            print(translator.translate("check_message"))
-
-
 if __name__ == "__main__":
     locale = input('Enter your language code [eg. en, ru]: ')
-    translator = Translator(language=locale)
-    Movies.check(translator)
     movie_instance = Movies(language=locale)
     movie_instance.setup_signal_handling()
     movie_instance.server_selection_menu()
