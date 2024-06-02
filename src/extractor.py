@@ -32,7 +32,6 @@ def extract(url, proxy):
     options.add_experimental_option(
         "excludeSwitches", ["enable-logging"])
     options.add_argument("--log-level=3")
-    options.add_experimental_option("detach", True)
 
     driver = webdriver.Chrome(options=options)
     driver.set_script_timeout(30)
