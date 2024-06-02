@@ -8,16 +8,12 @@ import sys
 import tempfile
 import time
 import warnings
-system_name = platform.system()
-if system_name == "Windows":
-    import winreg
 import zipfile
 import socketserver
 import random
 import string
 import http.server
 import threading
-import requests
 from extractor import extract
 import webbrowser
 import socket
@@ -1185,8 +1181,35 @@ class Movies:
             print(
                 Fore.RED + self.translator.translate("server_selection_error") + Style.RESET_ALL)
             self.server_selection_menu()
+    
+    def is_admin_or_sudo():
+        """
+        Check if the script is running with administrative privileges (Windows)
+        or sudo privileges (Linux).
+        """
+        system = platform.system()
+        
+        if system == 'Windows':
+            # Check for admin privileges on Windows
+            try:
+                import ctypes
+                return ctypes.windll.shell32.IsUserAnAdmin() != 0
+            except Exception as e:
+                print(f"Error checking admin status on Windows: {e}")
+                return False
+        
+        elif system == 'Linux':
+            # Check for sudo privileges on Linux
+            return os.geteuid() == 0
+        
+        else:
+            raise NotImplementedError(f"Unsupported operating system: {system}")
 
 if __name__ == "__main__":
+    if not Movies.is_admin_or_sudo():
+        print('Plz run the software as admin')
+        input('press enter to continue....')
+        raise SystemExit
     locale = input('Enter your language code [eg. en, ru]: ')
     movie_instance = Movies(language=locale)
     movie_instance.setup_signal_handling()
