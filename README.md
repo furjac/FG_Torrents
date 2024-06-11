@@ -106,3 +106,6 @@ Contact me on [Discord](https://discord.gg/YN9RKxewsq) for more information rega
 - need gui developer
 - translation
 - many things
+
+## Contributors
+@ElizaPears
