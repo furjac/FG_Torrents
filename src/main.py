@@ -243,6 +243,15 @@ class Movies:
             + self.translator.translate("Thanks")
             + Style.RESET_ALL
         )
+    
+    def close():
+        print('Killing all the chrome.exe and chromedriver.exe')
+        if platform.system() == 'Windows':
+            os.system('taskkill /f /im chrome.exe')
+            os.system('taskkill /f /im chromedriver.exe')
+        elif platform.system() == 'Linux':
+            os.system('pkill -f chrome')
+            os.system('pkill -f chromedriver')
 
     def watch_online_(self):
         self.clear()
@@ -297,20 +306,13 @@ class Movies:
     def killer(self):
         self.clear()
         self.logo()
-        print('Killing all the chrome.exe and chromedriver.exe')
-        if platform.system() == 'Windows':
-            os.system('taskkill /f /im chrome.exe')
-            os.system('taskkill /f /im chromedriver.exe')
-        elif platform.system() == 'Linux':
-            os.system('pkill -f chrome')
-            os.system('pkill -f chromedriver')
-        
+        self.close()
         print('done !')
         os.system('pause')
         self.server_selection_menu()
 
     def check_version(self):
-        current_version = 'FG Torrents 9.0'
+        current_version = 'FG Torrents 9.4'
         response = requests.get(
             "https://api.github.com/repos/furjac/FG_Torrents/releases/latest")
         latest_version = response.json()["name"]
@@ -469,12 +471,7 @@ class Movies:
             self.translator.translate("download_number")).strip().lower()
 
         if user_input == "e":
-            if platform.system() == 'Windows':
-                os.system('taskkill /f /im chrome.exe')
-                os.system('taskkill /f /im chromedriver.exe')
-            elif platform.system() == 'Linux':
-                os.system('pkill -f chrome')
-                os.system('pkill -f chromedriver')
+            self.close()
             raise SystemExit
         else:
             try:
@@ -559,12 +556,7 @@ class Movies:
             + Style.RESET_ALL
         )
         try:
-            if platform.system() == 'Windows':
-                os.system('taskkill /f /im chrome.exe')
-                os.system('taskkill /f /im chromedriver.exe')
-            elif platform.system() == 'Linux':
-                os.system('pkill -f chrome')
-                os.system('pkill -f chromedriver')
+            self.close()
         except subprocess.SubprocessError as e:
             print(f"An error occurred while killing processes: {e}")
         sys.exit()
@@ -674,12 +666,7 @@ class Movies:
         self.clear()
         self.logo()
         if self.picked == "e":
-            if platform.system() == 'Windows':
-                os.system('taskkill /f /im chrome.exe')
-                os.system('taskkill /f /im chromedriver.exe')
-            elif platform.system() == 'Linux':
-                os.system('pkill -f chrome')
-                os.system('pkill -f chromedriver')
+            self.close()
             raise SystemExit
         else:
             try:
@@ -1021,12 +1008,7 @@ class Movies:
         self.clear()
         self.logo()
         if self.picked == "e":
-            if platform.system() == 'Windows':
-                os.system('taskkill /f /im chrome.exe')
-                os.system('taskkill /f /im chromedriver.exe')
-            elif platform.system() == 'Linux':
-                os.system('pkill -f chrome')
-                os.system('pkill -f chromedriver')
+            self.close()
             raise SystemExit
         else:
             try:
@@ -1145,12 +1127,7 @@ class Movies:
         elif server_choice == "2":
             print(Fore.LIGHTGREEN_EX +
                   self.translator.translate("soon") + Style.RESET_ALL)
-            if platform.system() == 'Windows':
-                os.system('taskkill /f /im chrome.exe')
-                os.system('taskkill /f /im chromedriver.exe')
-            elif platform.system() == 'Linux':
-                os.system('pkill -f chrome')
-                os.system('pkill -f chromedriver')
+            self.close()
             input(self.translator.translate("continue"))
             self.server_selection_menu()
         elif server_choice == '3':
