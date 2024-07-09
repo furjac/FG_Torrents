@@ -244,7 +244,7 @@ class Movies:
             + Style.RESET_ALL
         )
     
-    def close():
+    def close(self):
         print('Killing all the chrome.exe and chromedriver.exe')
         if platform.system() == 'Windows':
             os.system('taskkill /f /im chrome.exe')
